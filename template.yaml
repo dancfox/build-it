@@ -5,6 +5,7 @@ Globals:
   Function:
     Layers:
       - !Sub "arn:aws:lambda:${AWS::Region}:580247275435:layer:LambdaInsightsExtension:14"
+      - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:IdGenerator:1"
 
 Resources:
   RollDieFunction:
@@ -49,6 +50,16 @@ Resources:
     Type: AWS::Serverless::SimpleTable
     Properties:
       TableName: DieRollResults
+
+  IdGenerator:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: src
+      CompatibleRuntimes:
+        - python3.9
+    Metadata:
+      BuildMethod: python3.9  
+
 Outputs:
   EndpointUrl:
     Description: 'HTTP REST endpoint URL'

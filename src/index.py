@@ -6,6 +6,7 @@ import os
 import uuid
 import json
 import base64
+import id_generator
 
 dynamodb_client = boto3.client('dynamodb')
 
@@ -18,7 +19,7 @@ def lambda_handler(event, context):
   name = json_body["name"]
 
   # create a unique id for the database record
-  id = uuid.uuid1()
+  id = id_generator.get_id()
 
   # introduce a failure at random
   failure_chance = int(os.environ.get('chanceOfFailure'))

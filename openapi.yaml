@@ -20,11 +20,6 @@ paths:
           required: true
           schema: 
             $ref: "#/definitions/RequestBodyModel"
-      # requestBody: 
-      #   content:
-      #     application/json:
-      #       schema:
-      #         $ref: '#/definitions/RequestBodyModel'
       responses:
         200:
           description: ok
