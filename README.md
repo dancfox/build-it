@@ -54,5 +54,5 @@ When an HTTP POST request is sent to the Amazon API Gateway endpoint, the AWS La
     ```bash
     aws cloudformation list-stacks --query "StackSummaries[?contains(StackName,'STACK_NAME')].StackStatus"
     ```
-
-SPDX-License-Identifier: MIT-0
+## License
+MIT-0
