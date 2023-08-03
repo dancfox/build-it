@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Serverless patterns - Amazon API Gateway to AWS Lambda to Amazon DynamoDB
+Description: A reference architecture for the Build-It application.
+Globals:
+  Function:
+    Layers:
+      - !Sub "arn:aws:lambda:${AWS::Region}:580247275435:layer:LambdaInsightsExtension:14"
+
 Resources:
   RollDieFunction:
     Type: AWS::Serverless::Function
@@ -12,16 +17,18 @@ Resources:
       Environment:
         Variables:
           chanceOfFailure: 25
+          LAMBDA_INSIGHTS_LOG_LEVEL: info
       Runtime: python3.9
       CodeUri: src/
       Policies:
-        DynamoDBCrudPolicy:
-          TableName: !Ref DynamoDBTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref DynamoDBTable
+        - CloudWatchLambdaInsightsExecutionRolePolicy
 
   RollApi:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: v1
+      StageName: roll
       DefinitionBody:
         Fn::Transform:
           Name: AWS::Include
@@ -45,4 +52,4 @@ Resources:
 Outputs:
   EndpointUrl:
     Description: 'HTTP REST endpoint URL'
-    Value: !Sub 'https://${RollApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'
+    Value: !Sub 'https://${RollApi}.execute-api.${AWS::Region}.amazonaws.com/roll'
