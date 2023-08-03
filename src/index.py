@@ -13,9 +13,9 @@ dynamodb_client = boto3.client('dynamodb')
 def lambda_handler(event, context):
 
   # get name from event body
-  encoded_body = event["body"]
-  decoded_body = base64.b64decode(encoded_body)
-  json_body = json.loads(decoded_body)
+  body = event["body"]
+  print("body = " + body)
+  json_body = json.loads(body)
   name = json_body["name"]
 
   # create a unique id for the database record

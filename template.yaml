@@ -1,11 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: A reference architecture for the Build-It application.
-Globals:
-  Function:
-    Layers:
-      - !Sub "arn:aws:lambda:${AWS::Region}:580247275435:layer:LambdaInsightsExtension:14"
-      - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:IdGenerator:1"
+# Globals:
+#   Function:
+#     Layers:
+#       - !Sub "arn:aws:lambda:${AWS::Region}:580247275435:layer:LambdaInsightsExtension:14"
+#       - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:IdGenerator:1"
 
 Resources:
   RollDieFunction:
