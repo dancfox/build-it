@@ -12,11 +12,11 @@ This is a reference architecture for the Build-It application. This application 
 
 1. Create a new directory, navigate to that directory in a terminal and clone the GitHub repository:
     ``` 
-    git clone git@ssh.gitlab.aws.dev:dfxamzn/build-it.git
+    git clone git@github.com:dancfox/build-it.git
     ```
 1. Change directory to the pattern directory:
     ```
-    cd apigw-lambda-dynamodb
+    cd build-it
     ```
 1. From the command line, use AWS SAM to deploy the AWS resources for the pattern as specified in the template.yml file:
     ```
@@ -37,9 +37,12 @@ When an HTTP POST request is sent to the Amazon API Gateway endpoint, the AWS La
 
 ## Testing
 
-After deployment, use the AWS Management Console (explained below) to test this pattern by sending an HTTP POST request to the Amazon API Gateway endpoint (found in the CloudFormation console Stacks Outputs tab) to confirm an item is added to the Amazon DynamoDB table. Alternatively, a command line shell or another application can be used to send the HTTP POST request.
-
-Using the Amazon API Gateway console, select the API, Resources, and POST method execution. Click Test on the Client box and the Test button without a request body. The request should return a response message 'You have rolled X!'. If any errors occur, this view also shows logs from the invocation for troubleshooting. Navigate to the Amazon DynamoDB console to verify the item was added into the table.
+- Download and install Postman.
+- Configure a POST request to the API Gateway endpoint printed in the CloudFormation outputs. 
+- Send a request with an empty body.  You should receive and `"Invalid request body"` error.
+- Send a request with the following body `{"name":"dan"}`. You should receive a die roll between 1 and 6.
+- Send several more die rolls. The application has a 25% chance of returning an error with each die roll.
+- Now go to DynamoDB and find the `DieRollResults` table. The table should be populated with a history of your die rolls.
 
 ## Cleanup
  
@@ -51,7 +54,5 @@ Using the Amazon API Gateway console, select the API, Resources, and POST method
     ```bash
     aws cloudformation list-stacks --query "StackSummaries[?contains(StackName,'STACK_NAME')].StackStatus"
     ```
-----
-Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 SPDX-License-Identifier: MIT-0
