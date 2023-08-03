@@ -4,10 +4,18 @@ import boto3
 import random
 import os
 import uuid
+import json
+import base64
 
 dynamodb_client = boto3.client('dynamodb')
 
 def lambda_handler(event, context):
+
+  # get name from event body
+  encoded_body = event["body"]
+  decoded_body = base64.b64decode(encoded_body)
+  json_body = json.loads(decoded_body)
+  name = json_body["name"]
 
   # create a unique id for the database record
   id = uuid.uuid1()
@@ -16,7 +24,7 @@ def lambda_handler(event, context):
   failure_chance = int(os.environ.get('chanceOfFailure'))
   if random.randint(1, 100) < failure_chance:   
     print('A failure occurred.') 
-    dynamodb_client.put_item(TableName='DieRollResults',  Item={'id': {'S': str(id)}, 'Result': {'S': 'A failure occured.'}})
+    dynamodb_client.put_item(TableName='DieRollResults',  Item={'id': {'S': str(id)}, 'Result': {'S': 'A failure occured.'}, 'Name': {'S': name}})
     return {
       'statusCode': 500,
       'body': 'Uh oh. Something went wrong!'
@@ -24,7 +32,7 @@ def lambda_handler(event, context):
 
   # generate random number between 1 and 6
   die_roll = random.randint(1, 6)
-  dynamodb_client.put_item(TableName='DieRollResults', Item={'id': {'S': str(id)}, 'Result': {'S': 'You rolled a ' + str(die_roll) + '!'}})
+  dynamodb_client.put_item(TableName='DieRollResults', Item={'id': {'S': str(id)}, 'Result': {'S': 'You rolled a ' + str(die_roll) + '!'}, 'Name': {'S': name}})
 
   return {
     'statusCode': 200,
