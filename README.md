@@ -40,7 +40,7 @@ When an HTTP POST request is sent to the Amazon API Gateway endpoint, the AWS La
 - Download and install Postman.
 - Configure a POST request to the API Gateway endpoint printed in the CloudFormation outputs. 
 - Send a request with an empty body.  You should receive and `"Invalid request body"` error.
-- Send a request with the following body `{"name":"dan"}`. You should receive a die roll between 1 and 6.
+- Send a request with the following JSON as the raw body: `{"name":"dan"}`. You should receive a die roll between 1 and 6.
 - Send several more die rolls. The application has a 25% chance of returning an error with each die roll.
 - Now go to DynamoDB and find the `DieRollResults` table. The table should be populated with a history of your die rolls.
 
