@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Roll Die API
+  description: This API was built for the Build-It program!
+x-amazon-apigateway-request-validators: 
+  body-only: 
+    validateRequestBody: true
+    validateRequestParameters: false
+paths:
+  /:
+    post:
+      x-amazon-apigateway-request-validator: "body-only"
+      description: Roll the die using this POST method.
+      consumes:
+        - application/json
+      parameters: 
+        - in: body
+          name: RequestBodyModel
+          required: true
+          schema: 
+            $ref: "#/definitions/RequestBodyModel"
+      # requestBody: 
+      #   content:
+      #     application/json:
+      #       schema:
+      #         $ref: '#/definitions/RequestBodyModel'
+      responses:
+        200:
+          description: ok
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RollDieFunction.Arn}/invocations"
+definitions:
+  RequestBodyModel:
+    required: 
+      - name      
+    type: object
+    properties:
+      name:
+        type: string
+        minLength: 2
+        maxLength: 30    
+

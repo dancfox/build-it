@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless patterns - Amazon API Gateway to AWS Lambda to Amazon DynamoDB
+Resources:
+  RollDieFunction:
+    Type: AWS::Serverless::Function
+    Description: 'Lambda function that rolls a die and inserts results into DynamoDB table'
+    Properties:
+      FunctionName: RollDieFunction
+      Handler: index.lambda_handler
+      Tracing: Active
+      Environment:
+        Variables:
+          chanceOfFailure: 25
+      Runtime: python3.9
+      CodeUri: src/
+      Policies:
+        DynamoDBCrudPolicy:
+          TableName: !Ref DynamoDBTable
+
+  RollApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: v1
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: openapi.yaml
+
+  RollDieFunctionPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn:
+      - RollApi
+      - RollDieFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref RollDieFunction
+      Principal: apigateway.amazonaws.com
+
+  DynamoDBTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: DieRollResults
+Outputs:
+  EndpointUrl:
+    Description: 'HTTP REST endpoint URL'
+    Value: !Sub 'https://${RollApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'
