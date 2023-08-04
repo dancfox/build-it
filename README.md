@@ -51,4 +51,4 @@ This is a reference architecture for the Build-It application. This application 
     aws cloudformation list-stacks --query "StackSummaries[?contains(StackName,'STACK_NAME')].StackStatus"
     ```
 ## License
-MIT-0
+[MIT-0](https://github.com/dancfox/build-it/blob/main/LICENSE)
