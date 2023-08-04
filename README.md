@@ -33,7 +33,7 @@ This is a reference architecture for the Build-It application. This application 
 
 ## Testing
 
-- Download and install Postman.
+- Download and install [Postman](https://www.postman.com/downloads/).
 - Configure a POST request to the API Gateway endpoint printed in the CloudFormation outputs. 
 - Send a request with an empty body.  You should receive and `"Invalid request body"` error.
 - Send a request with the following JSON as the raw body: `{"name":"dan"}`. You should receive a die roll between 1 and 6.
