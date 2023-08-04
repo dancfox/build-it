@@ -3,9 +3,7 @@
 import boto3
 import random
 import os
-import uuid
 import json
-import base64
 import id_generator
 
 dynamodb_client = boto3.client('dynamodb')
