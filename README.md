@@ -18,7 +18,7 @@ This is a reference architecture for the Build-It application. This application 
     ```
     cd build-it
     ```
-1. From the command line, use AWS SAM to deploy the AWS resources for the pattern as specified in the template.yml file:
+1. From the command line, use AWS SAM to deploy the AWS resources for the pattern as specified in the template.yaml file:
     ```
     sam deploy --guided
     ```
