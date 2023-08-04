@@ -29,7 +29,7 @@ This is a reference architecture for the Build-It application. This application 
 
     Once you have run `sam deploy --guided` mode once and saved arguments to a configuration file (samconfig.toml), you can use `sam deploy` in future to use these defaults.
 
-1. Note the outputs from the SAM deployment process. These contain the resource names and/or ARNs which are used for testing.
+1. Note the outputs from the SAM deployment process. These contain the API endpoint URL you will use for testing.
 
 ## How it works
 
