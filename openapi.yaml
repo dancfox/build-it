@@ -23,6 +23,8 @@ paths:
       responses:
         200:
           description: ok
+        500: 
+          description: failure
       x-amazon-apigateway-integration:
         type: aws_proxy
         httpMethod: POST
