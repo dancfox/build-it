@@ -31,10 +31,6 @@ This is a reference architecture for the Build-It application. This application 
 
 1. Note the outputs from the SAM deployment process. These contain the API endpoint URL you will use for testing.
 
-## How it works
-
-When an HTTP POST request is sent to the Amazon API Gateway endpoint, the AWS Lambda function is invoked and inserts an item into the Amazon DynamoDB table.
-
 ## Testing
 
 - Download and install Postman.
