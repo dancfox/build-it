@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: 1.0.0
   title: Roll Die API
-  description: This API was built for the Build-It program!
+  description: This API is configured for the Build-It program!
 x-amazon-apigateway-request-validators: 
   body-only: 
     validateRequestBody: true
